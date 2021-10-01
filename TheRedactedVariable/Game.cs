@@ -318,6 +318,7 @@ namespace TheRedactedVariable
                 case 1:
                     GetPlayerName();
                     CharacterSelection();
+                    InitializeEnemy();
                     break;
                 case 2:
                     Introduction();
@@ -855,7 +856,7 @@ namespace TheRedactedVariable
             //If the player says yes...
             if (choice == 0)
             {
-                //...restart t6he game
+                //...restart the game
                 _currentScene = 1;
             }
             //If the player says no...
