@@ -58,7 +58,6 @@ namespace TheRedactedVariable
         public void Start()
         {
             InitializeItems();
-            InitializeEnemy();
         }
 
         /// <summary>
