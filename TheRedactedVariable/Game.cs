@@ -539,7 +539,8 @@ namespace TheRedactedVariable
             //The second room
             else if (room1 > 10 && room1 < 21)
             {
-                TypeOutWords("You walk in to a room with a roaring fireplace and lush carpets. On the table you find a healing potion and drink it, gaining 20 health!", 25);
+                TypeOutWords("You walk in to a room with a roaring fireplace and lush carpets. " +
+                    "\nOn the table you find a healing potion and drink it, gaining 20 health!", 25);
                 _player.TakeDamage(-20);
             }
             //the third room
@@ -624,6 +625,7 @@ namespace TheRedactedVariable
                 {
                     TypeOutWords("You use your better judgement and decide not to drink the vial of mysterious liquid." +
                         "\nYou move forward.", 25);
+                    _player.GainInfection(5);
                 }
             }
             //the seventh room
@@ -672,16 +674,18 @@ namespace TheRedactedVariable
                 {
                     TypeOutWords("You stumble your way through this room and trip over something squishy." +
                         "\nIt makes a high pitched noise and as you are getting up you feel many small, dense, fleshy creatures jump on you." +
-                        "\nYou scramble to get up and rush to the next door, but they continue to scratch and slash you\n\nSUSTAIN 35 DAMAGE", 25);
+                        "\nYou scramble to get up and rush to the next door, but they continue to scratch and slash you\n\nSUSTAIN 35 DAMAGE\nSUSTAIN 10 SANITY LOSS", 25);
                     _player.TakeDamage(35);
+                    _player.LoseSanity(10);
+                    _player.GainInfection(5);
                 }
             }
             //This is the only other way to reach the boss without running away
             else if (room1 > 80 && room1 < 86)
             {
-                TypeOutWords("'I see you'\n\n'You have made a grave mistake coming here " + _playerName + "'", 150);
+                TypeOutWords("'I see you'\n\n'You have made a grave mistake coming here " + _playerName + "'\n\n", 150);
 
-                int choice = GetInput("Do you wish to fight me?", "Yes", "No");
+                int choice = GetInput("'Do you wish to fight me?'\n", "Yes", "No");
 
                 if (choice == 0)
                 {
@@ -701,6 +705,7 @@ namespace TheRedactedVariable
                     TypeOutWords("You fall into an abyss within your mind. Lifetimes pass before your eyes. " +
                         "\nExistence as you know it crumbles and reality shakes. A faint whisper..." +
                         "\n'It's time to wake up'\n", 50);
+                    _player.GainInfection(15);
                 }
             }
             Console.WriteLine("");
@@ -727,6 +732,10 @@ namespace TheRedactedVariable
 
                 damageTaken = _currentEnemy.Attack(_player);
                 TypeOutWords("[REDACTED] has dealt " + damageTaken + ".", 45);
+
+                //Every time the player fights they lose sanity and gain infection
+                _player.GainInfection(5);
+                _player.LoseSanity(5);
 
                 Thread.Sleep(500);
                 Console.Clear();
