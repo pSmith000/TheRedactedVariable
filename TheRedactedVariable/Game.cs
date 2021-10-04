@@ -110,7 +110,7 @@ namespace TheRedactedVariable
             if (!File.Exists("SaveData.txt"))
             {
                 //...return false
-                loadSuccessful = false;
+                return false;
             }
 
             //Creates a new stream reader
